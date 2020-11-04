@@ -1,47 +1,40 @@
-# Template: template-ros
+## Preparation
 
-This template provides a boilerplate repository
-for developing ROS-based software in Duckietown.
+0.Clone this repositary to your PC
 
-**NOTE:** If you want to develop software that does not use
-ROS, check out [this template](https://github.com/duckietown/template-basic).
+1.Go to *simulator_help_files folder*. Edit file *docker-compose.yaml*. Change the 3 lines below **volumes** to 
 
+`<path_to_repositary>/simulator_help_files/data:/data`
 
-## How to use it
+Replace *<path_to_repositary>* with the directory that you clone the repositary.
 
-### 1. Fork this repository
+## Execution
+### Build simulatorwrapper image
 
-Use the fork button in the top-right corner of the github page to fork this template repository.
+Run command
 
+`dts devel build -f`
 
-### 2. Create a new repository
+### Start related duckiebot containers
 
-Create a new repository on github.com while
-specifying the newly forked template repository as
-a template for your new repository.
+Run command `docker-compose up` from the directory where the file *docker-compose.yaml* resides.
 
+### Start docker container
 
-### 3. Define dependencies
+Run command
 
-List the dependencies in the files `dependencies-apt.txt` and
-`dependencies-py3.txt` (apt packages and pip packages respectively).
+`dts devel run`
 
+### Monitor and publish rostopic
 
-### 4. Place your code
+Run command
 
-Place your code in the directory `/packages/` of
-your new repository.
+`dts start_gui_tools fakebot`
 
+or
 
-### 5. Setup launchers
+`docker run -it --net host duckietown/dt-ros-commons:daffy-amd64 /bin/bash`
 
-The directory `/launchers` can contain as many launchers (launching scripts)
-as you want. A default launcher called `default.sh` must always be present.
+To monitor image publisher, run command `rqt_image_view` and select topic */fakebot/camera_node/image/compressed* .
 
-If you create an executable script (i.e., a file with a valid shebang statement)
-a launcher will be created for it. For example, the script file 
-`/launchers/my-launcher.sh` will be available inside the Docker image as the binary
-`dt-launcher-my-launcher`.
-
-When launching a new container, you can simply provide `dt-launcher-my-launcher` as
-command.
+To change wheel velocity, run command `rostopic pub /fakebot/wheels_driver_node/wheels_cmd /fakebot/kinematics_node 'auto','X','Y'`. Replace *X* and *Y* with desired velocity of left and right wheel, respectively. 
