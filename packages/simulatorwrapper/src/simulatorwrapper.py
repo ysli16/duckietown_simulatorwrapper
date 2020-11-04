@@ -36,8 +36,8 @@ class ROSWrapper(DTROS):
         super(ROSWrapper, self).__init__(node_name=node_name, node_type=NodeType.GENERIC)
         self.bridge = CvBridge()
 
-        self.pub = rospy.Publisher('/camera_node/image/compressed', CompressedImage, queue_size=1)
-        self.sub = rospy.Subscriber('/wheels_driver_node/wheels_cmd', WheelsCmdStamped, self.callback)
+        self.pub = rospy.Publisher('/fakebot/camera_node/image/compressed', CompressedImage, queue_size=1)
+        self.sub = rospy.Subscriber('/fakebot/wheels_driver_node/wheels_cmd', WheelsCmdStamped, self.callback)
         self.action=[0.1,0.1]
         
     def imagepublisher(self,observation):
