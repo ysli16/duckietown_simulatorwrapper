@@ -1,0 +1,11 @@
+<package>
+  <name>simulatorwrapper</name>
+  <version>0.1.0</version>
+  <description>
+  A ROS wrapper that maps wheel commands to actions and observations to camera images on a ROS topic. 
+  </description>
+  <maintainer email="yuesli@student.ethz.ch">Yueshan Li</maintainer>
+  <license>None</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
